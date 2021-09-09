@@ -1,0 +1,7 @@
+{
+  "name": "Test heroku app",
+  "description": "Test heroku app",
+  "image": "heroku/ruby",
+  "addons": [
+  ],
+}
