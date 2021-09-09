@@ -1,0 +1,6 @@
+{
+  "name": "Test heroku app",
+  "description": "Test heroku app",
+  "addons": [
+  ],
+}
