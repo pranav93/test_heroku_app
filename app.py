@@ -1,7 +1,9 @@
 # A Bare Bones Slack API
 # Illustrates basic usage of FastAPI w/ MongoDB
+import os
+
 from pymongo import MongoClient
-from fastapi import FastAPI, status, Depends
+from fastapi import FastAPI, status, Depends, Header, HTTPException
 from pydantic import BaseModel
 from typing import List, Any
 
@@ -61,13 +63,19 @@ def get_db() -> MongoClient:
     return db.get_connection()
 
 
-@app.get("/status")
+def verify_token(x_token: str = Header(...)):
+    if x_token == os.getenv("secret"):
+        return
+    raise HTTPException(status_code=401, detail="X-Token header invalid")
+
+
+@app.get("/status", dependencies=[Depends(verify_token)])
 def get_status():
     """Get status of messaging server."""
     return {"status": "running"}
 
 
-@app.get("/channels", response_model=List[str])
+@app.get("/channels", response_model=List[str], dependencies=[Depends(verify_token)])
 def get_channels(client: MongoClient = Depends(get_db)):
     """Get all channels in list form."""
     msg_collection = client[DB][MSG_COLLECTION]
@@ -75,7 +83,7 @@ def get_channels(client: MongoClient = Depends(get_db)):
     return distinct_channel_list
 
 
-@app.get("/messages/{channel}", response_model=List[Message])
+@app.get("/messages/{channel}", response_model=List[Message], dependencies=[Depends(verify_token)])
 def get_messages(channel: str, client: MongoClient = Depends(get_db)):
     """Get all messages for the specified channel."""
     msg_collection = client[DB][MSG_COLLECTION]
@@ -86,7 +94,7 @@ def get_messages(channel: str, client: MongoClient = Depends(get_db)):
     return response_msg_list
 
 
-@app.post("/post_message", status_code=status.HTTP_201_CREATED)
+@app.post("/post_message", status_code=status.HTTP_201_CREATED, dependencies=[Depends(verify_token)])
 def post_message(message: Message, client: MongoClient = Depends(get_db)):
     """Post a new message to the specified channel."""
     msg_collection = client[DB][MSG_COLLECTION]
