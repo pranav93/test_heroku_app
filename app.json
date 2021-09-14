@@ -1,13 +1,17 @@
 {
-  "addons": [
-    {
-      "plan": "heroku-postgresql:hobby-dev"
-    },
-    {
-      "plan": "heroku-redis:hobby-dev"
-    },
-    {
-      "plan": "ormongo:2-wt"
+  "environments": {
+    "review": {
+      "addons": [
+        {
+          "plan": "heroku-postgresql:hobby-dev"
+        },
+        {
+          "plan": "heroku-redis:hobby-dev"
+        },
+        {
+          "plan": "ormongo:2-wt"
+        }
+      ]
     }
-  ]
+  }
 }
