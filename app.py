@@ -49,7 +49,9 @@ class Database(metaclass=SingletonMeta):
 @app.on_event("startup")
 async def startup_event():
     db = Database()
-    db.set_connection(MongoClient(host="localhost", port=9999))
+    host = os.getenv("host")
+    port = int(os.getenv("port"))
+    db.set_connection(MongoClient(host=host, port=port))
 
 
 @app.on_event("shutdown")
