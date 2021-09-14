@@ -1,9 +1,11 @@
 {
-  "name": "Sample App",
-  "description": "Heroku test sample app",
   "environments": {
     "review": {
-      "addons": ["ormongo:2-wt"]
+      "addons": [
+        "heroku-postgresql:hobby-dev",
+        "heroku-redis:hobby-dev",
+        "ormongo:2-wt"
+      ]
     }
   }
 }
