@@ -1,4 +1,8 @@
 {
+  "name": "Node.js Sample",
+  "description": "A barebones Node.js app using Express",
+  "repository": "https://github.com/heroku/node-js-getting-started",
+  "keywords": ["python", "FastAPI"],
   "addons": [
     "heroku-postgresql:hobby-dev",
     "heroku-redis:hobby-dev",
