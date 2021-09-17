@@ -1,7 +1,7 @@
 {
-  "name": "Node.js Sample",
-  "description": "A barebones Node.js app using Express",
-  "repository": "https://github.com/heroku/node-js-getting-started",
+  "name": "FastAPI Sample App",
+  "description": "FastAPI Sample App",
+  "repository": "https://github.com/pranav93/test_heroku_app",
   "keywords": ["python", "FastAPI"],
   "addons": [
     "heroku-postgresql:hobby-dev",
